@@ -37,6 +37,7 @@ The PDF Exam Q&A Merger is a Python utility designed to automate the process of 
 The PDF Exam Q&A Merger incorporates robust error handling to ensure smooth operation.
 If a question or answer PDF file is missing, the system will log a warning message and display a notification to the user, specifying which file is missing.
 All operations, successful or otherwise, are logged and promted in a detailed manner for audit and troubleshooting purposes.
+
 ![Example_log](Error_example.png)
 
 **Logging Details:**
