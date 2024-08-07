@@ -24,6 +24,8 @@ The PDF Exam Q&A Merger is a Python utility designed to automate the process of 
 
 
 
+
+
    Make sure to place the .py file in the same directory as the Q and A folders
    ![\`\`\`
    main_folder/
