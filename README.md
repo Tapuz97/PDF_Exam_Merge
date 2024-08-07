@@ -18,17 +18,30 @@ The PDF Exam Q&A Merger is a Python utility designed to automate the process of 
 
 2. **Directory Structure**:
    Ensure your project directory is set up as follows:
-   \`\`\`
+   ![\`\`\`
    main_folder/
    ├── A/          # Folder containing answer PDFs
    ├── Q/          # Folder containing question PDFs
    ├── pdf_merger.py # Python script file
    └── Merged/    # Folder for output merged PDFs (created by the script)
-   \`\`\`
+   \`\`\`](File_structure.png)
 
 3. **Run the Script**: Execute the script to automatically rename and merge your PDFs.
 
 4. **Review Merged Files**: Access the merged PDFs in the `Merged` folder.
+
+## Error Handling and Logs
+
+The PDF Exam Q&A Merger incorporates robust error handling to ensure smooth operation.
+If a question or answer PDF file is missing, the system will log a warning message and display a notification to the user, specifying which file is missing.
+All operations, successful or otherwise, are logged and promted in a detailed manner for audit and troubleshooting purposes.
+![Example_log](Error_example.png)
+
+**Logging Details:**
+- Logs are written to `file_operations.log`, which includes timestamps, error levels, and descriptive messages about each operation.
+- Errors related to file renaming or merging are clearly detailed to aid in resolving issues quickly.
+
+This proactive approach to error management and logging ensures that any issues can be diagnosed and corrected efficiently, enhancing the reliability and usability of the tool.
 
 ## Requirements
 
