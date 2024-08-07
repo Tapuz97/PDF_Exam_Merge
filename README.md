@@ -119,7 +119,7 @@ Contributions to the PDF Exam Q&A Merger are welcome. To contribute:
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) file for details.
+This project is licensed under the MIT License.
 
 ## Acknowledgments
 
