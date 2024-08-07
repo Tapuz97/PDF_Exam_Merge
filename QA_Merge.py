@@ -1,5 +1,6 @@
 import os
 import logging
+import sys
 from PyPDF2 import PdfMerger
 
 # Set up logging
@@ -14,8 +15,35 @@ question_folder = "Q"
 answer_folder = "A"
 merged_folder = "Merged"
 
-# Create Merged folder if it doesn't exist
-os.makedirs(merged_folder, exist_ok=True)
+# List all files in a directory with a given suffix.
+def list_files(directory, suffix):
+    return {os.path.splitext(f)[0] for f in os.listdir(directory) if f.endswith(suffix)}
+
+# Check for missing files in question and answer folders.
+def check_files(q_folder, a_folder):
+    is_missing = False
+    q_files = list_files(q_folder, ".pdf")
+    a_files = list_files(a_folder, ".pdf")
+    missing_q = q_files - a_files
+    missing_a = a_files - q_files
+
+    if missing_q:
+        print("Missing corresponding 'A' files for the following 'Q' files:")
+        is_missing = True
+        for file in missing_q:
+            message = f"Q file missing: {file}"
+            print(message)
+            logging.warning(message)  # Log missing Q files
+
+    if missing_a:
+        print("Missing corresponding 'Q' files for the following 'A' files:")
+        is_missing = True
+        for file in missing_a:
+            message = f"A file missing: {file}"
+            print(message)
+            logging.warning(message)  # Log missing A files
+
+    return is_missing
 
 # Rename PDF files in the given folder by appending a suffix.
 def rename_files(folder, suffix):
@@ -72,9 +100,24 @@ def merge_pdf(q_folder, a_folder, merged_folder):
             logging.error(f"Failed to merge {q_file} and {a_file}: {e}")
             print(f"Error: Failed to merge {q_file} and {a_file}. See log for details.")
 
-# Step 1: Rename files in Q and A folders
-rename_files(question_folder, "Q")
-rename_files(answer_folder, "A")
+def main():
+    # Check for missing files before renaming
+    if check_files(question_folder, answer_folder):
+        response = input("Do you wish to continue? (y/n): ")
+        response = response.lower()
+        if response != 'y':
+            print("Operation canceled by the user.")
+            sys.exit()
+            
+    # Create Merged folder if it doesn't exist
+    os.makedirs(merged_folder, exist_ok=True)
 
-# Step 2: Merge PDFs
-merge_pdf(question_folder, answer_folder, merged_folder)
+    # Step 1: Rename files in Q and A folders
+    rename_files(question_folder, "Q")
+    rename_files(answer_folder, "A")
+
+    # Step 2: Merge PDFs
+    merge_pdf(question_folder, answer_folder, merged_folder)
+
+if __name__ == "__main__":
+    main()
